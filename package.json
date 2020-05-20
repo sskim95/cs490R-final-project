@@ -1,0 +1,19 @@
+{
+  "name": "final-project-sskim95",
+  "version": "1.0.0",
+  "description": "CS 490R Final Project 1. Express serves an API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BYUHCS490R/final-project-sskim95.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BYUHCS490R/final-project-sskim95/issues"
+  },
+  "homepage": "https://github.com/BYUHCS490R/final-project-sskim95#readme"
+}
