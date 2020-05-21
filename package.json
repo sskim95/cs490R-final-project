@@ -4,7 +4,7 @@
   "description": "CS 490R Final Project 1. Express serves an API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "devStart": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/BYUHCS490R/final-project-sskim95/issues"
   },
-  "homepage": "https://github.com/BYUHCS490R/final-project-sskim95#readme"
+  "homepage": "https://github.com/BYUHCS490R/final-project-sskim95#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.15"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.4"
+  }
 }
