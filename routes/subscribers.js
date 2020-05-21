@@ -20,8 +20,9 @@ router.get('/:id', getSubscriber, (req, res) => {
 // Creating one
 router.post('/', async (req, res) => {
   const subscriber = new Subscriber({
-    name: req.body.name,
-    subscribedToChannel: req.body.subscribedToChannel
+    eventCourse: req.body.eventCourse,
+    eventPlace: req.body.eventPlace,
+    eventCapacity: req.body.eventCapacity
   })
   try {
     const newSubscriber = await subscriber.save()
@@ -33,11 +34,14 @@ router.post('/', async (req, res) => {
 
 // Updating one
 router.patch('/:id', getSubscriber, async (req, res) => {
-  if (req.body.name != null) {
-    res.subscriber.name = req.body.name
+  if (req.body.eventCourse != null) {
+    res.subscriber.eventCourse = req.body.eventCourse
   }
-  if (req.body.subscribedToChannel != null) {
-    res.subscriber.subscribedToChannel = req.body.subscribedToChannel
+  if (req.body.eventPlace != null) {
+    res.subscriber.eventPlace = req.body.eventPlace
+  }
+  if (req.body.eventCapacity != null) {
+    res.subscriber.eventCapacity = req.body.eventCapacity
   }
   try {
     const updatedSubscriber = await res.subscriber.save()
@@ -51,7 +55,7 @@ router.patch('/:id', getSubscriber, async (req, res) => {
 router.delete('/:id', getSubscriber, async (req, res) => {
   try {
     await res.subscriber.remove()
-    res.json({ message: 'Deleted Subscriber' })
+    res.json({ message: 'Deleted event' })
   } catch (err) {
       res.status(500).json({ message: err.message })
   }
@@ -62,7 +66,7 @@ async function getSubscriber(req, res, next) {
   try {
     subscriber = await Subscriber.findById(req.params.id)
     if (subscriber == null) {
-      return res.status(404).json({ message: 'Cannot find subscriber' })
+      return res.status(404).json({ message: 'Cannot find event' })
     }
   } catch (err) {
       return res.status(500).json({ message: err.message })

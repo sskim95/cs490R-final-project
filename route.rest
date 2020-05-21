@@ -10,13 +10,14 @@ POST http://localhost:3000/subscribers
 Content-Type: application/json
 
 {
-    "name": "Amazing Person", 
-    "subscribedToChannel": "Web Dev Simplified"
+    "eventCourse": "CS 490R", 
+    "eventPlace": "Portable 1",
+    "eventCapacity": 5
 }
 
 ###
 
-DELETE http://localhost:3000/subscribers/5ec61f9b32146e310c3713b7
+DELETE http://localhost:3000/subscribers/5ec62306d3e33f325d2ba3d0
 
 ###
 
@@ -24,5 +25,7 @@ PATCH http://localhost:3000/subscribers/5ec61f9b32146e310c3713b7
 Content-Type: application/json
 
 {
-    "name": "New name"
+    "eventCourse": "CS 420", 
+    "eventPlace": "Portable 2",
+    "eventCapacity": 3
 }
