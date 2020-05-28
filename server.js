@@ -14,4 +14,6 @@ app.use(express.json())
 const eventsRouter = require('./routes/events')
 app.use('/events', eventsRouter)
 
-app.listen(3000, () => console.log('Server Started'))
+app.listen(3000, () => {
+    console.log('Server Started')
+})
