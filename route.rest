@@ -1,31 +1,31 @@
-GET http://localhost:3000/subscribers
+GET http://localhost:3000/events
 
 ###
 
-GET http://localhost:3000/subscribers/5ec60cea640c902d02a50c32
+GET http://localhost:3000/events/5ecf3e06eda2e959d4b78e11
 
 ###
 
-POST http://localhost:3000/subscribers 
+POST http://localhost:3000/events
 Content-Type: application/json
 
 {
-    "eventCourse": "CS 490R", 
+    "eventCourse": "CS 490R",
     "eventPlace": "Portable 1",
     "eventCapacity": 5
 }
 
 ###
 
-DELETE http://localhost:3000/subscribers/5ec62306d3e33f325d2ba3d0
+DELETE http://localhost:3000/events/5ecf3e06eda2e959d4b78e11
 
 ###
 
-PATCH http://localhost:3000/subscribers/5ec61f9b32146e310c3713b7
+PATCH http://localhost:3000/events/5ecf3e06eda2e959d4b78e11
 Content-Type: application/json
 
 {
-    "eventCourse": "CS 420", 
+    "eventCourse": "CS 420",
     "eventPlace": "Portable 2",
-    "eventCapacity": 3
+    "eventCapacity": 5
 }
