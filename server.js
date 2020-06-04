@@ -17,7 +17,7 @@ mongoose.connect("mongodb://mongo:27017/acemdb", { useUnifiedTopology: true, use
             console.log('Server Started')
         })
     })
-
-
-
-
+    .catch(err => {
+        console.error("Mongo Connection Error", err);
+        process.exit();
+    })
