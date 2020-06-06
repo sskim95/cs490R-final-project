@@ -39,6 +39,7 @@ router.post('/login', (req, res) => {
         } else {
             user.comparePassword(req.body.password, function(err, isMatch) {
                 if (isMatch) {
+                    // token has id and email
                     const tokenObj = { _id: user._id, email: user.email }
                     const token = jwt.sign(tokenObj, config.secret)
                     res.send({success: true, token: 'JWT ' + token})

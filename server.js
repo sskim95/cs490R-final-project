@@ -2,7 +2,10 @@ require('dotenv').config()
 
 const express = require('express')
 const mongoose = require('mongoose')
+const passport = require('passport')
 const routes = require('./routes')
+
+//require ('./config/passport')(passport)
 
 mongoose.connect("mongodb://mongo:27017/acemdb", { useUnifiedTopology: true, useNewUrlParser: true })
     .then(() => {
