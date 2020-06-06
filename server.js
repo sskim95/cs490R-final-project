@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const passport = require('passport')
 const routes = require('./routes')
 
-//require ('./config/passport')(passport)
+require ('./config/passport')(passport)
 
 mongoose.connect("mongodb://mongo:27017/acemdb", { useUnifiedTopology: true, useNewUrlParser: true })
     .then(() => {
@@ -14,8 +14,10 @@ mongoose.connect("mongodb://mongo:27017/acemdb", { useUnifiedTopology: true, use
         db.on('error', (error) => console.error(error))
         db.once('open', () => console.log('Connected to Database'))
         app.use(express.json())
+        //Has no security to people signup
         app.use('/events/auth', routes.auth)
-        app.use('/events', routes.events)
+        //app.use('/events', routes.events)
+        app.use("/events", passport.authenticate('jwt', { session : false }), routes.events)
 
         app.listen(3000, () => {
             console.log('Server Started')

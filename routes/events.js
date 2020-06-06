@@ -1,8 +1,14 @@
 const express = require('express')
-const router = express.Router()
 const models = require('../models')
+const router = express.Router()
 
 const Event = models.Event
+
+router.use( (req, res, next) => {
+  //do logging
+  console.log("A request came in...")
+  next();
+})
 
 // Getting all
 router.get('/', async (req, res) => {
