@@ -17,6 +17,11 @@ const eventSchema = new mongoose.Schema({
         type: Date,
         requried: true,
         default: Date.now
+    },
+    //kind of foriegn key
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User' //reference user model
     }
 })
 

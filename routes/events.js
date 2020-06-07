@@ -8,8 +8,9 @@ router.use( (req, res, next) => {
   //do logging
   console.log("A request came in...")
   next();
-})
+});
 
+//testAPI
 router.get("/testAPI", function(req, res) {
   const resObject = {
     message: "Test API is working",
@@ -30,7 +31,22 @@ router.get('/', async (req, res) => {
 
 // Getting one
 router.get('/:id', getEvent, (req, res) => {
-    res.json(res.event)
+  Event.findOne({ _id: req.params.id })
+  .populate('author', 'email')
+  .then(function(event) {
+    if (event) {
+      res.json(event)
+    } else {
+      res.status(404)
+      res.json({ error: "Event doesn't exist!"})
+    }
+  })
+  .catch(function(err) {
+    console.log(err)
+    res.status(500)
+    res.json({message: "Error", error: err})
+  })
+    
 })
 
 // Creating one
@@ -38,7 +54,8 @@ router.post('/', async (req, res) => {
     const event = new Event({
       eventCourse: req.body.eventCourse,
       eventPlace: req.body.eventPlace,
-      eventCapacity: req.body.eventCapacity
+      eventCapacity: req.body.eventCapacity,
+      author: req.user._id
     })
     try {
       const newEvent = await event.save()
