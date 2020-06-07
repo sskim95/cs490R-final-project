@@ -10,6 +10,14 @@ router.use( (req, res, next) => {
   next();
 })
 
+router.get("/testAPI", function(req, res) {
+  const resObject = {
+    message: "Test API is working",
+    user: req.user
+  }
+  return res.send(resObject)
+});
+
 // Getting all
 router.get('/', async (req, res) => {
     try {
