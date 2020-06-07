@@ -8,7 +8,7 @@ const secret = config.secret
 module.exports = (passport) => {
     var opts = {}
     opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt')
-    opts.secretOrkey = secret
+    opts.secretOrKey = secret
     passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
         User.findOne({_id: jwt_payload._id}, (err, user) => {
             if (err) {
