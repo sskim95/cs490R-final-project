@@ -14,7 +14,9 @@ router.post('/signup', (req, res) => {
     } else {
         const newUser = new User({
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password,
+            name: req.body.name,
+            major: req.body.major
         })
         newUser.save((err) => {
             if (err) {
