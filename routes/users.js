@@ -35,7 +35,7 @@ router.patch("/:id", getUser, async (req, res) => {
                 throw err
             }
             if (!isMatch) {
-                res.status(401).send({success: false, message: "Password not match"})
+                res.status(401).send({success: false, message: "Password doesn't match"})
             } else {
                 if (req.body.email != null) {
                     res.user.email = req.body.email
@@ -63,6 +63,31 @@ router.patch("/:id", getUser, async (req, res) => {
         res.status(401).send({message: "Unauthorized User"})
     }
 })
+
+//Deleting the user
+router.delete('/:id', getUser, async (req, res) => {
+    if (req.user._id.equals(res.user._id)) {
+        bcrypt.compare(req.body.password, res.user.password, async function(err, isMatch) {
+            if (err) {
+                throw err
+            }
+            if (!isMatch) {
+                res.status(401).send({ message: "You entered a  wrong password!" })
+            } else {
+                try {
+                    await res.user.remove()
+                    res.status(200)
+                    res.json({ message: 'Deleted user' })
+                } catch(err) {
+                    res.status(500).json({ message: err.message })
+                }
+            } 
+        })
+    } else {
+        res.status(401).send({ message: "Unauthorized User" })
+    }
+})
+
 
 async function getUser(req, res, next) {
     let user
