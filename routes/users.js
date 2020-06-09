@@ -18,6 +18,15 @@ router.get("/", async (req, res) => {
     }
 })
 
+/*
+{
+    "email": "sungsoo@test.com",
+    "password": "password",
+    "name": "Sungsoo",
+    "major": "Computer Science",
+    "role": "admin"
+}
+*/
 //Updating the user
 router.patch("/:id", getUser, async (req, res) => {
     if (req.user._id.equals(res.user._id)) {
@@ -28,16 +37,29 @@ router.patch("/:id", getUser, async (req, res) => {
             if (!isMatch) {
                 res.status(401).send({success: false, message: "Password not match"})
             } else {
-                res.status(200).send({success: true, message: "Password matched"})
-                res.user.password = req.body.newPassword
-            } try {
-                const updatedUser = await res.user.save()
-                res.json(updatedUser)
-            } catch(err) {
-                res.status(400).json({message: err.message})
-            }
+                if (req.body.email != null) {
+                    res.user.email = req.body.email
+                }
+                if (req.body.password != null) {
+                    res.user.password = req.body.password
+                }
+                if (req.body.name != null) {
+                    res.user.name = req.body.name
+                }
+                if (req.body.major != null) {
+                    res.user.major = req.body.major
+                }
+                try {
+                    const updatedUser = await res.user.save()
+                    res.status(200)
+                    res.json(updatedUser)
+                } catch(err) {
+                    res.status(400).json({message: err.message})
+                }
+            } 
         })
     } else {
+        //User didn't create this user, so user cannot edit it.
         res.status(401).send({message: "Unauthorized User"})
     }
 })
