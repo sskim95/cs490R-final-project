@@ -18,6 +18,7 @@ mongoose.connect("mongodb://mongo:27017/acemdb", { useUnifiedTopology: true, use
         app.use('/events/auth', routes.auth)
         //app.use('/events', routes.events)
         app.use("/events", passport.authenticate('jwt', { session : false }), routes.events)
+        app.use("/users", passport.authenticate('jwt', { session : false }), routes.users)
 
         app.listen(3000, () => {
             console.log('Server Started')

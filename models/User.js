@@ -6,7 +6,8 @@ const bcrypt = require("bcrypt")
     "email": "sungsoo@test.com",
     "password": "password",
     "name": "Sungsoo",
-    "major": "Computer Science"
+    "major": "Computer Science",
+    "role": "admin"
 }
 */
 const UserSchema = mongoose.Schema({
