@@ -3,11 +3,22 @@ const bcrypt = require("bcrypt")
 
 /*
 {
-    "email": "sungsoo@test.com",
-    "password": "password",
-    "name": "Sungsoo",
-    "major": "Computer Science",
-    "role": "admin"
+    "email": "ad@ad.com",
+    "password": "admin",
+    "name": "Admin name",
+    "major": "Admin major"
+}
+{
+    "email": "test1@test1.com",
+    "password": "test1",
+    "name": "Test1 name",
+    "major": "Test1 major"
+}
+{
+    "email": "test2@test2.com",
+    "password": "test2",
+    "name": "Test2 name",
+    "major": "Test2 major"
 }
 */
 const UserSchema = mongoose.Schema({
@@ -19,6 +30,10 @@ const UserSchema = mongoose.Schema({
     password : {
         type: String,
         required: true
+    },
+    newpassword : {
+        type: String,
+        required: false
     },
     name : {
         type: String,

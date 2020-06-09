@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 
 /*
 {
-	"eventCourse": "CS 490R",
-	"eventPlace": "Portable 3",
+	"eventCourse": "Test 2 course",
+	"eventPlace": "Test 2 place",
 	"eventCapacity": 5
 }
 */

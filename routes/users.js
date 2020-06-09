@@ -7,29 +7,21 @@ const router = express.Router()
 
 const User = models.User
 
-//Getting all users
-router.get("/", async (req, res) => {
-    try {
-        const users = await User.find();
-        res.json(users);
-    } catch (err) {
+router.get("/", function(req, res) {
+    User.find({})
+    //.populate('name', 'email')
+    .then(function(products) {
+        res.json([products])
+    })
+    .catch(function(err) {
         res.status(500)
-        res.json({ success: false, error: err });
-    }
+        res.json({success: false, error: err})
+    })
 })
 
-/*
-{
-    "email": "sungsoo@test.com",
-    "password": "password",
-    "name": "Sungsoo",
-    "major": "Computer Science",
-    "role": "admin"
-}
-*/
 //Updating the user
 router.patch("/:id", getUser, async (req, res) => {
-    if (req.user._id.equals(res.user._id)) {
+    if (req.user._id.equals(res.user._id) || req.user.isAdmin) {
         bcrypt.compare(req.body.password, res.user.password, async function(err, isMatch) {
             if (err) {
                 throw err
@@ -40,7 +32,7 @@ router.patch("/:id", getUser, async (req, res) => {
                 if (req.body.email != null) {
                     res.user.email = req.body.email
                 }
-                if (req.body.password != null) {
+                if (req.body.newpassword != null) {
                     res.user.password = req.body.password
                 }
                 if (req.body.name != null) {
@@ -66,7 +58,7 @@ router.patch("/:id", getUser, async (req, res) => {
 
 //Deleting the user
 router.delete('/:id', getUser, async (req, res) => {
-    if (req.user._id.equals(res.user._id)) {
+    if (req.user._id.equals(res.user._id) || req.user.isAdmin) {
         bcrypt.compare(req.body.password, res.user.password, async function(err, isMatch) {
             if (err) {
                 throw err
@@ -87,7 +79,6 @@ router.delete('/:id', getUser, async (req, res) => {
         res.status(401).send({ message: "Unauthorized User" })
     }
 })
-
 
 async function getUser(req, res, next) {
     let user

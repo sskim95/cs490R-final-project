@@ -100,7 +100,7 @@ router.patch('/:id', getEvent, async (req, res) => {
 
 //Deleting an event
 router.delete('/:id', getEvent, async (req, res) => {
-  if (req.user._id.equals(res.event.author)) {
+  if (req.user._id.equals(res.event.author) || req.user.isAdmin) {
     try {
       await res.event.remove()
       res.status(200)
