@@ -19,7 +19,7 @@ router.get("/testAPI", function(req, res) {
   return res.send(resObject)
 });
 
-// Getting all
+// Getting all events
 router.get('/', async (req, res) => {
     try {
       const events = await Event.find()
@@ -29,8 +29,8 @@ router.get('/', async (req, res) => {
     }
 })
 
-// Getting one
-router.get('/:id', getEvent, (req, res) => {
+// Getting one event
+router.get("/:id", function(req,res) {
   Event.findOne({ _id: req.params.id })
   .populate('author', 'email')
   .then(function(event) {
@@ -44,29 +44,38 @@ router.get('/:id', getEvent, (req, res) => {
   .catch(function(err) {
     console.log(err)
     res.status(500)
-    res.json({message: "Error", error: err})
+    res.json({message: "Error", error: err })
   })
-    
-})
+}) 
 
-// Creating one
+//Creating one event
 router.post('/', async (req, res) => {
-    const event = new Event({
-      eventCourse: req.body.eventCourse,
-      eventPlace: req.body.eventPlace,
-      eventCapacity: req.body.eventCapacity,
-      author: req.user._id
-    })
-    try {
-      const newEvent = await event.save()
-      res.status(201).json(newEvent)
-    } catch (err) {
-        res.status(400).json({ message: err.message })
-    }
+  if (!req.body.eventCourse || !req.body.eventPlace || !req.body.eventCapacity) {
+    res.status(400)
+    res.json({success: false, error: "Fill out all the fields"})
+  }
+  const event = new Event({
+    eventCourse: req.body.eventCourse,
+    eventPlace: req.body.eventPlace,
+    eventCapacity: req.body.eventCapacity,
+    author: req.user._id
+  })
+  event.save()
+  .then(
+    res.status(201).json(event)
+  )
+  .catch(function(err) {
+    res.status(500)
+    res.status({success: false, error: err})
+  })
 })
 
-// Updating one
+//Updating one event
 router.patch('/:id', getEvent, async (req, res) => {
+  console.log(req.user._id)
+  console.log(res.event.author)
+  console.log(req.user._id.equals(res.event.author))
+  if (req.user._id.equals(res.event.author)) {
     if (req.body.eventCourse != null) {
       res.event.eventCourse = req.body.eventCourse
     }
@@ -78,14 +87,21 @@ router.patch('/:id', getEvent, async (req, res) => {
     }
     try {
       const updatedEvent = await res.event.save()
+      res.status(200)
       res.json(updatedEvent)
     } catch (err) {
         res.status(400).json({ message: err.message })
     }
+  } else {
+    res.status(403).json({success: false, message: "403 - Forbidden"})
+  }
 })
 
 // Deleting one
 router.delete('/:id', getEvent, async (req, res) => {
+  // if (req.user.isAdmin) {
+  //   //Is this user admin? 
+  // }
     try {
       await res.event.remove()
       res.json({ message: 'Deleted event' })
@@ -104,7 +120,6 @@ async function getEvent(req, res, next) {
     } catch (err) {
         return res.status(500).json({ message: err.message })
     }
-  
     res.event = event
     next()
 }

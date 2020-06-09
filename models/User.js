@@ -1,7 +1,14 @@
 const mongoose = require('mongoose')
 const bcrypt = require("bcrypt")
 
-
+/*
+{
+    "email": "sungsoo@test.com",
+    "password": "password",
+    "name": "Sungsoo",
+    "major": "Computer Science"
+}
+*/
 const UserSchema = mongoose.Schema({
     email : {
         type: String,
@@ -19,6 +26,11 @@ const UserSchema = mongoose.Schema({
     major : {
         type: String,
         required: true
+    },
+    role: {
+        type: String,
+        required: true,
+        default: "user"
     }
 });
 
@@ -30,7 +42,6 @@ UserSchema.pre('save', async function(next) {
     } else {
         return next()
     }
-
 });
 
 UserSchema.methods.comparePassword = function(password, cb) {
@@ -40,8 +51,10 @@ UserSchema.methods.comparePassword = function(password, cb) {
         }
         cb(null, isMatch)
     })
-
 }
 
+UserSchema.methods.isAdmin = function() {
+    return this.role === "admin"
+}
 
 module.exports = mongoose.model('User', UserSchema)

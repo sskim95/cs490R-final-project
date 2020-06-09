@@ -1,5 +1,12 @@
 const mongoose = require('mongoose')
 
+/*
+{
+	"eventCourse": "CS 490R",
+	"eventPlace": "Portable 3",
+	"eventCapacity": 5
+}
+*/
 const eventSchema = new mongoose.Schema({
     eventCourse: {
         type: String,

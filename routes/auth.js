@@ -6,7 +6,6 @@ const config = require('../config/config')
 
 const router = express.Router();
 
-
 router.post('/signup', (req, res) => {
     if (! req.body.email || ! req.body.password) {
         res.status(400)
@@ -52,5 +51,43 @@ router.post('/login', (req, res) => {
         }
     })
 })
+
+router.patch('/:id', getUser, async (req, res) => {
+    if (req.user._id.equals(res.user._id) || req.user.isAdmin) {
+        bcrypt.comparePassword(req.body.password, res.user.password, async function(err, isMatch) {
+            if (err) {
+                throw err
+            } else if (!isMatch) {
+                res.status(401)
+                res.send({success: false, message: "Password doesn't match"})
+            } else {
+                res.status(200)
+                res.send({success: true, message: "Password changed"})
+                res.user.password = req.body.newPassword
+            } try {
+                const updatedUser = await res.user.save()
+                res.json(updatedUser)
+            } catch(err) {
+                res.status(400)
+                res.json({message: err.message})
+            }
+        })
+    } else {
+        res.status(401)
+        res.send({message: "Unauthorized User"})
+    }
+})
+
+async function getUser(req, res, next) {
+    let user
+    try {
+        user = await User.findById(req.params.id)
+        if (user == null) {
+            return res.status(404).json({message: "Cannot find user"})
+        }
+    } catch (err) {
+        return res.status(500).json({message: err.message})
+    }
+}
 
 module.exports = router;
