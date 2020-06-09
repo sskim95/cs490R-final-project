@@ -19,7 +19,7 @@ router.get("/testAPI", function(req, res) {
   return res.send(resObject)
 });
 
-// Getting all events
+//Getting all events
 router.get('/', async (req, res) => {
     try {
       const events = await Event.find()
@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
     }
 })
 
-// Getting one event
+//Getting one event
 router.get("/:id", function(req,res) {
   Event.findOne({ _id: req.params.id })
   .populate('author', 'email')
@@ -48,7 +48,7 @@ router.get("/:id", function(req,res) {
   })
 }) 
 
-//Creating one event
+//Creating an event
 router.post('/', async (req, res) => {
   if (!req.body.eventCourse || !req.body.eventPlace || !req.body.eventCapacity) {
     res.status(400)
@@ -70,11 +70,11 @@ router.post('/', async (req, res) => {
   })
 })
 
-//Updating one event
+//Updating an event
 router.patch('/:id', getEvent, async (req, res) => {
-  console.log(req.user._id)
-  console.log(res.event.author)
-  console.log(req.user._id.equals(res.event.author))
+  // console.log(req.user._id)
+  // console.log(res.event.author)
+  // console.log(req.user._id.equals(res.event.author))
   if (req.user._id.equals(res.event.author)) {
     if (req.body.eventCourse != null) {
       res.event.eventCourse = req.body.eventCourse
@@ -93,21 +93,25 @@ router.patch('/:id', getEvent, async (req, res) => {
         res.status(400).json({ message: err.message })
     }
   } else {
+    //user didn't create this event, so user cannot edit it.
     res.status(403).json({success: false, message: "403 - Forbidden"})
   }
 })
 
-// Deleting one
+//Deleting an event
 router.delete('/:id', getEvent, async (req, res) => {
-  // if (req.user.isAdmin) {
-  //   //Is this user admin? 
-  // }
+  if (req.user._id.equals(res.event.author)) {
     try {
       await res.event.remove()
+      res.status(200)
       res.json({ message: 'Deleted event' })
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
+  } else {
+    //user didn't create this event, so user cannot delete it.
+    res.status(403).json({success: false, message: "403 - Forbidden"})
+  }
 })
 
 async function getEvent(req, res, next) {
