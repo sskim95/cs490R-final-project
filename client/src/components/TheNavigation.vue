@@ -1,12 +1,15 @@
 <template>
     <nav id="nav">
-        <p class="logo">Simple Express/Vue Blog</p>
+        <p class="logo">Simple Express/Vue Website</p>
         <ul class="nav-links">
             <li>
-                <router-link :to="{ name: 'Home'}" class="links">Home</router-link>
+                <router-link :to="{ name: 'Home' }" class="links">Home</router-link>
             </li>
             <li>
-                <router-link :to="{ name: 'About'}" class="links">About</router-link>
+                <router-link :to="{ name: 'About' }" class="links">About</router-link>
+            </li>
+            <li v-if="$store.getters.loggedIn">
+                <router-link :to="{ name: 'Events' }" class="links">Events</router-link>
             </li>
             <li v-if="!$store.getters.loggedIn">
                 <router-link :to="{ name: 'SignUp' }" class="links"

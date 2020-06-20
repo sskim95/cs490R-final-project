@@ -42,6 +42,7 @@ export default {
           })
           .then(() => {
             this.message = "Logged in";
+            this.$router.push("/");
           })
           .catch(err => {
             console.log(err);
