@@ -20,6 +20,9 @@
                 <router-link :to="{ name: 'Login' }" class="links">Login</router-link>
             </li>
             <li v-if="$store.getters.loggedIn">
+                <router-link :to="{ name: 'Users' }" class="links">User</router-link>
+            </li>
+            <li v-if="$store.getters.loggedIn">
                 <a @click="logout()" class="links">Logout</a>
             </li>
         </ul>

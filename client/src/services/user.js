@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/api/events";
+const API_URL = "http://localhost:3000/api/users";
 
-class EventService {
-    static getEvents(token) {
+class UserService {
+    static getUsers(token) {
         return new Promise((resolve, reject) => {
             axios  
                 .get(API_URL, { headers: { authorization: token } })
@@ -18,4 +18,4 @@ class EventService {
     }
 }
 
-export default EventService;
+export default UserService;

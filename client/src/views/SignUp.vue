@@ -4,12 +4,20 @@
     <form name="signUpForm" @submit.prevent="handleSignup">  <!-- We don't want to refresh the page -->
         <div v-if="message" id="message">{{message}}</div>
         <div class="form_row">
-            <label for="email">Email</label>
+            <label for="email">Email:</label>
             <input type="email" name="email" v-model="email" />
         </div>
         <div class="form_row">
             <label for="password">Password:</label>
             <input type="password" name="password" v-model="password" />
+        </div>
+        <div class="form_row">
+            <label for="name">Name:</label>
+            <input type="name" name="name" v-model="name" />
+        </div>
+        <div class="form_row">
+            <label for="major">Major:</label>
+            <input type="major" name="major" v-model="major" />
         </div>
         <div class="form_row">
             <button :disabled="submitted">
@@ -29,7 +37,9 @@ export default {
             submitted: false,
             message: "",
             email: "",
-            password: ""
+            password: "",
+            name: "",
+            major: "",
         };
     },
     methods: {
