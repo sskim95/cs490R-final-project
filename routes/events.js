@@ -75,7 +75,7 @@ router.patch('/:id', getEvent, async (req, res) => {
   // console.log(req.user._id)
   // console.log(res.event.author)
   // console.log(req.user._id.equals(res.event.author))
-  if (req.user._id.equals(res.event.author)) {
+  if (req.user._id.equals(res.event.author) || req.user.isAdmin) {
     if (req.body.eventCourse != null) {
       res.event.eventCourse = req.body.eventCourse
     }

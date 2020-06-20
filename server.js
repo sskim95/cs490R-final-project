@@ -15,9 +15,9 @@ mongoose.connect("mongodb://mongo:27017/acemdb", { useUnifiedTopology: true, use
         db.once('open', () => console.log('Connected to Database'))
         app.use(express.json())
         //Has no security to people signup
-        app.use('/auth', routes.auth)
+        app.use('/api/auth', routes.auth)
         //app.use('/events', routes.events)
-        app.use("/events", passport.authenticate('jwt', { session : false }), routes.events)
+        app.use("/api/events", passport.authenticate('jwt', { session : false }), routes.events)
         app.use("/users", passport.authenticate('jwt', { session : false }), routes.users)
 
         app.listen(3000, () => {
