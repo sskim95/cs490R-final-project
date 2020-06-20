@@ -12,10 +12,14 @@ class AuthService {
                 })
                 .then((res) => {
                     console.log("Service return success");
+                    resolve(res.data.user);
                 })
                 .catch((err) => {
                     console.log("Service returned failure");
+                    reject(err);
                 });
         });
     }
 }
+
+export default AuthService;

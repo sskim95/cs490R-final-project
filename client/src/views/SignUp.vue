@@ -1,8 +1,7 @@
 <template>
   <div class="SignUp">
     <h2>SignUp</h2>
-    <!-- We don't want to refresh the page -->
-    <form name="signUpForm" @submit.prevent="handleSignup"> 
+    <form name="signUpForm" @submit.prevent="handleSignup">  <!-- We don't want to refresh the page -->
         <div v-if="message" id="message">{{message}}</div>
         <div class="form_row">
             <label for="email">Email</label>
@@ -21,6 +20,8 @@
   </div>
 </template>
 <script>
+import AuthService from "@/services/auth";
+
 export default {
     name: "SignUp",
     data() {
@@ -36,7 +37,19 @@ export default {
             console.log("Sign Up Pressed");
             this.submitted = true;
             if (this.email != "" && this.password != "") {
-                this.message = "I should send data to API";
+                AuthService.signup({
+                    email: this.email,
+                    password: this.password,
+                })
+                    .then((user) => {
+                        console.log(user);
+                        this.message = "User Created";
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        this.message = "Email already taken";
+                        this.submitted = false;
+                    });
             } else {
                 this.message = "Email and Password requried.";
                 this.submitted = false;

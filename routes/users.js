@@ -32,7 +32,7 @@ router.patch("/:id", getUser, async (req, res) => {
                 if (req.body.email != null) {
                     res.user.email = req.body.email
                 }
-                if (req.body.newpassword != null) {
+                if (req.body.password != null) {
                     res.user.password = req.body.password
                 }
                 if (req.body.name != null) {

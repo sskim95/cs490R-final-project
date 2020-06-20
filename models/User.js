@@ -31,17 +31,13 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    newpassword : {
+    name : {
         type: String,
         required: false
     },
-    name : {
-        type: String,
-        required: true
-    },
     major : {
         type: String,
-        required: true
+        required: false
     },
     role: {
         type: String,
