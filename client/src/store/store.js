@@ -27,11 +27,19 @@ export const store = new Vuex.Store({
                     return Promise.reject(err);
                 });
         },
+        logout({ commit }) {
+            localStorage.removeItem("jwt_token");
+            commit("logout");
+        },
     },
     mutations: {
         login(state, token) {
             state.loggedIn = true;
             state.token = token;
+        },
+        logout(state) {
+            state.loggedIn = false;
+            state.token = null;
         },
     },
     getters: {

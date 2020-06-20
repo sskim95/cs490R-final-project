@@ -8,15 +8,30 @@
             <li>
                 <router-link :to="{ name: 'About'}" class="links">About</router-link>
             </li>
-            <li>
-                <router-link :to="{ name: 'SignUp'}" class="links">Sign Up</router-link>
+            <li v-if="!$store.getters.loggedIn">
+                <router-link :to="{ name: 'SignUp' }" class="links"
+                    >Sign Up</router-link
+                >
             </li>
-            <li>
-                <router-link :to="{ name: 'Login'}" class="links">Login</router-link>
+            <li v-if="!$store.getters.loggedIn">
+                <router-link :to="{ name: 'Login' }" class="links">Login</router-link>
+            </li>
+            <li v-if="$store.getters.loggedIn">
+                <a @click="logout()" class="links">Logout</a>
             </li>
         </ul>
     </nav>
 </template>
+<script>
+export default {
+    methods: {
+        logout() {
+            this.$store.dispatch("logout");
+            this.$router.push("/");
+        },
+    },
+};
+</script>
 <style scoped>
 #nav {
     display: flex;
