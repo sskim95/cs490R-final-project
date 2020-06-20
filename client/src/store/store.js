@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import AuthService from "@/services/auth";
 
-const toekn = localStorage.getItem("jwt_token");
+const token = localStorage.getItem("jwt_token");
 const initialState =
     token && token != ""
         ? { loggedIn: true, token: token }

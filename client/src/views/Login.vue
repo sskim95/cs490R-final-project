@@ -20,7 +20,6 @@
   </div>
 </template>
 <script>
-import AuthService from "@/services/auth";
 export default {
   name: "Login",
   data() {
@@ -36,12 +35,12 @@ export default {
       this.submitted = true;
       if (this.email != "" && this.password != "") {
         console.log("Sending login request");
-        AuthService.login({
-          email: this.email,
-          password: this.password
-        })
-          .then(token => {
-            console.log(token);
+        this.$store
+          .dispatch("login", {
+            email: this.email,
+            password: this.password,
+          })
+          .then(() => {
             this.message = "Logged in";
           })
           .catch(err => {
@@ -53,7 +52,7 @@ export default {
         this.message = "Email and password required.";
         this.submitted = false;
       }
-    }
-  }
+    },
+  },
 };
 </script>
