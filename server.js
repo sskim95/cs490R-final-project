@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors');
 const passport = require('passport')
 const routes = require('./routes')
 
@@ -14,6 +15,7 @@ mongoose.connect("mongodb://mongo:27017/acemdb", { useUnifiedTopology: true, use
         db.on('error', (error) => console.error(error))
         db.once('open', () => console.log('Connected to Database'))
         app.use(express.json())
+        app.use(cors());
         //Has no security to people signup
         app.use('/api/auth', routes.auth)
         //app.use('/events', routes.events)
