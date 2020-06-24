@@ -45,6 +45,12 @@ const routes = [
       }
     ]
   },
+  {
+    path: "/event/:id",
+    name: "event",
+    component: () =>
+      import(/* webpackChunkName: "event" */ "../views/Event.vue")
+  },
 ];
 
 const router = new VueRouter({

@@ -1,10 +1,8 @@
 <template>
   <div>
-    <h2>View Post</h2>
-    <div v-if="loading">Loading...</div>
-    <div v-if="post">
-      <h3>[ID: {{post.id}}]</h3>
-      <div>{{post.text}}</div>
+    <h2>View Event</h2>
+    <div v-if="event">
+      <div>{{event.eventCourse}}</div>
     </div>
   </div>  
 </template>
@@ -14,22 +12,22 @@ import EventService from "@/services/event";
 export default {
     data() {
         return {
-            events: [],
-            message: "Loading Events",
+            event: null,
+            message: "Loading One Event",
         };
     },
     mounted() {
-        console.log("Load Events Here.");
+        console.log("Load One Event Here.");
         if (this.$store.getters.loggedIn) {
             const token = this.$store.getters.token;
-            EventService.getEvents(token) 
+            EventService.getEvent(token) 
                 .then((data) => {
-                    this.events = data;
+                    this.event = data;
                     this.message = null;
                 })
                 .catch((err) => {
-                    console.log("Error getting events: ", err);
-                    this.message = "Error getting events";
+                    console.log("Error getting one event: ", err);
+                    this.message = "Error getting one event";
                 });
         } else {
             this.message = "You must login first";

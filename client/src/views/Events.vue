@@ -6,9 +6,9 @@
         </div>
         <div id="events">
             <div class="events" v-for="event in this.events" :key="event._id">
-                <li>
+                <!-- <li>
                     <router-link :to="{ name: 'About' }" class="links">Event: {{ event.eventCourse }}</router-link>
-                </li>
+                </li> -->
                 <router-link :to="{ name: 'event', params: { id: event._id } }">
                     Event: {{event.eventCourse}}
                 </router-link>
