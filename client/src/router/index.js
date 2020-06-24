@@ -35,13 +35,15 @@ const routes = [
     path: "/events",
     name: "Events",
     component: () =>
-      import(/* webpackChunkName: "events" */ "../views/Events.vue")
-  },
-  {
-    path: "/users",
-    name: "Users",
-    component: () =>
-      import(/* webpackChunkName: "users" */ "../views/Users.vue")
+      import(/* webpackChunkName: "events" */ "../views/Events.vue"),
+    children: [
+      {
+        path: ":id",
+        name: "event",
+        component: () =>
+          import(/* webpackChunkName: "event" */ "../views/Event.vue")
+      }
+    ]
   },
 ];
 
