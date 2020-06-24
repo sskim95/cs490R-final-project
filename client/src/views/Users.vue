@@ -7,7 +7,7 @@
         <div id="users">
             <div class="users" v-for="user in this.users" :key="user._id">
                 <p class="class">
-                    {{ user.major }}
+                    {{ user.email }}
                 </p>
             </div>
         </div>

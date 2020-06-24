@@ -15,6 +15,7 @@
     </div>
 </template>
 <script>
+import EventService from "@/services/event";
 
 export default {
     data() {
