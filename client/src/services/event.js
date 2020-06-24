@@ -20,7 +20,7 @@ class EventService {
     static getEvent(token) {
         return new Promise((resolve, reject) => {
             axios  
-                .get(API_URL + "event._id", { headers: { authorization: token } })
+                .get(API_URL + "/:id", { headers: { authorization: token } })
                 .then((res) => {
                     console.log("Service returned success");
                     resolve(res.data);
@@ -30,6 +30,8 @@ class EventService {
                 });
         });
     }
+
+
 }
 
 export default EventService;

@@ -14,6 +14,9 @@
                 </router-link>
             </div>
         </div>
+        <button>
+                <router-link to ="/createevent">New Event</router-link>
+        </button>
     </div>
 </template>
 <script>

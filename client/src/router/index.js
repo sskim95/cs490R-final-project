@@ -46,10 +46,10 @@ const routes = [
     ]
   },
   {
-    path: "/event/:id",
-    name: "event",
-    component: () =>
-      import(/* webpackChunkName: "event" */ "../views/Event.vue")
+    path: "/createevent",
+    name: "CreateEvent",
+    component: () => 
+      import(/* webpackChunkName: "createevent" */ "../views/CreateEvent.vue")
   },
 ];
 
