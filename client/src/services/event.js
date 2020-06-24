@@ -31,7 +31,24 @@ class EventService {
         });
     }
 
-
+    static postEvent(token) {
+        return new Promise((resolve, reject) => {
+            axios
+                .post(API_URL, {
+                    eventCourse: event.eventCourse,
+                    eventPlace: event.eventPlace,
+                    eventCapacity: event.eventCapacity,
+                })
+                .then((res) => {
+                    console.log("Service return success");
+                    resolve(res.data.event);
+                })
+                .catch((err) => {
+                    console.log("Service returned failure");
+                    reject(err);
+                });
+        });
+    }
 }
 
 export default EventService;

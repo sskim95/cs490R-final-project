@@ -15,7 +15,7 @@
             </div>
         </div>
         <button>
-                <router-link to ="/createevent">New Event</router-link>
+                <router-link :to="{ name: 'CreateEvent' }" class="links">Create Event</router-link>
         </button>
     </div>
 </template>
